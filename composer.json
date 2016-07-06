@@ -37,7 +37,7 @@
         "ext-session": "*",
         "ext-spl": "*",
         "ext-simplexml": "*",
-        "sport1online/ezpublish-legacy-installer": "v2016.07.*",
+        "sport1online/ezpublish-legacy-installer": "v2016.*",
         "ezsystems/ezautosave-ls": "~5.3",
         "ezsystems/ezdemo-ls-extension": "~5.3",
         "ezsystems/ezflow-ls-extension": "~5.3",
