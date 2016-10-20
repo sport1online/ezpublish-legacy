@@ -385,6 +385,9 @@ class eZXMLOutputHandler
             $this->NestingLevel++;
             foreach( $element->childNodes as $child )
             {
+                if(!isset($this->outputTag)){
+                    return;
+                }
                 $childOutput = $this->outputTag( $child, $nextSibilingParams, $parentParams );
 
                 if ( is_array( $childOutput[0] ) )
@@ -605,7 +608,10 @@ class eZXMLOutputHandler
     function callTagInitHandler( $handlerName, $element, &$attributes, &$siblingParams, &$parentParams )
     {
         $result = array();
-        $thisOutputTag = $this->OutputTags[$element->nodeName];
+        $thisOutputTag = null;
+        if(isset($this->OutputTags[$element->nodeName])){
+            $thisOutputTag = $this->OutputTags[$element->nodeName];
+        }
         if ( isset( $thisOutputTag[$handlerName] ) )
         {
             if ( is_callable( array( $this, $thisOutputTag[$handlerName] ) ) )
@@ -620,7 +626,10 @@ class eZXMLOutputHandler
     function callTagRenderHandler( $handlerName, $element, $childrenOutput, $vars )
     {
         $result = array();
-        $thisOutputTag = $this->OutputTags[$element->nodeName];
+        $thisOutputTag = null;
+        if(isset($this->OutputTags[$element->nodeName])){
+            $thisOutputTag = $this->OutputTags[$element->nodeName];
+        }
         if ( isset( $thisOutputTag[$handlerName] ) )
         {
             $handlerFunction = $thisOutputTag[$handlerName];
