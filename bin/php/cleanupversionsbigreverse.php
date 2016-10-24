@@ -39,7 +39,7 @@ foreach ( $rows as $row )
     $versionLimit = eZContentClass::versionHistoryLimit( $object->attribute( 'content_class' ) );
     if ( $versionCount <= $versionLimit )
     {
-        return true;
+        continue;
     }
     $versionToRemove = $versionCount - $versionLimit;
     $versions = $object->versions( true, array(
