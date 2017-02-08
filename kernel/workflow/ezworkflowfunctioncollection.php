@@ -16,13 +16,6 @@
 
 class eZWorkflowFunctionCollection
 {
-    /*!
-     Constructor
-    */
-    function eZWorkflowFunctionCollection()
-    {
-    }
-
 
     function fetchWorkflowStatuses()
     {

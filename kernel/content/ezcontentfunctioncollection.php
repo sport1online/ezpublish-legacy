@@ -16,13 +16,6 @@
 
 class eZContentFunctionCollection
 {
-    /*!
-     Constructor
-    */
-    function eZContentFunctionCollection()
-    {
-    }
-
     static public function fetchContentObject( $objectID, $remoteID = false )
     {
         if ( $objectID === false && $remoteID !== false )
