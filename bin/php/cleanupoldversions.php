@@ -7,52 +7,62 @@ require_once 'autoload.php';
 
 $cli = eZCLI::instance();
 
-$script = eZScript::instance(array(
+$script = eZScript::instance([
     'description' => 'This script will progressively cleanup history, 2000 objects at a time.',
     'use-session' => false,
     'use-modules' => true,
     'use-extensions' => true,
-));
+]);
+
+$options = $script->getOptions();
+
+$limit = isset($options['arguments'][0])
+    ? (int) $options['arguments'][0]
+    : 2000;
 
 $script->startup();
 $script->initialize();
 
 $db = eZDB::instance();
-$rows = $db->arrayQuery('
+$rows = $db->arrayQuery("
     select
         contentobject_id,
-        count(*) count
+        count(*) count,
+        max(modified) newest
     from
         ezcontentobject_version
     where created < unix_timestamp(now() - interval 2 month)
     group by contentobject_id
     having count > 1
-    limit 2000
+    and newest < unix_timestamp(now() - interval 2 month)
+    limit $limit
     ;
-');
+");
 
 $length = count($rows);
 foreach ($rows as $index => $row) {
     $object = eZContentObject::fetch($row['contentobject_id']);
     $class = $object->attribute('content_class')->Identifier;
+    $purge = 0 === strpos($class, 'sport1_');
 
-    if (0 === strpos($class, 'sport1_')) {
-        $cli->output(sprintf(
-            "%s\t%s\t%s\t%s",
-            $row['contentobject_id'],
-            $class,
-            $index + 1,
-            $length
-        ));
+    $cli->output(sprintf(
+        "%s\t%s\t%s\t%s\t%s",
+        $row['contentobject_id'],
+        $class,
+        $index + 1,
+        $length,
+        $purge ? 'cleaning' : 'ignoring'
+    ));
 
-        $versions = $object->versions(true, array(
-            'conditions' => array('status' => \eZContentObjectVersion::STATUS_ARCHIVED),
-            'limit' => array(
+    if ($purge) {
+        $versions = $object->versions(true, [
+            'conditions' => ['status' => \eZContentObjectVersion::STATUS_ARCHIVED],
+            'limit' => [
                 'limit' => $object->getVersionCount() - 1,
                 'offset' => 0,
-            ),
-            'sort' => array('modified' => 'asc'),
-        ));
+            ],
+            'sort' => ['modified' => 'asc'],
+        ]);
 
         $db->begin();
         foreach ($versions as $version) {
