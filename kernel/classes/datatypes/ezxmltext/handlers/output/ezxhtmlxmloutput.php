@@ -125,7 +125,7 @@ class eZXHTMLXMLOutput extends eZXMLOutputHandler
                              'renderHandler' => 'renderText' )
     );
 
-    function __construct( &$xmlData, $aliasedType, $contentObjectAttribute = null )
+    function __construct( $xmlData, $aliasedType, $contentObjectAttribute = null )
     {
         parent::__construct( $xmlData, $aliasedType, $contentObjectAttribute );
 

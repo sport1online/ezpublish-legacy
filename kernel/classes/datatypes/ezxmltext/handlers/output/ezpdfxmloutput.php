@@ -11,7 +11,7 @@
 class eZPDFXMLOutput extends eZXHTMLXMLOutput
 {
 
-    function __construct( &$xmlData, $aliasedType, $contentObjectAttribute = null )
+    function __construct( $xmlData, $aliasedType, $contentObjectAttribute = null )
     {
         parent::__construct( $xmlData, $aliasedType, $contentObjectAttribute );
 

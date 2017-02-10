@@ -46,7 +46,7 @@ class eZOEXMLInput extends eZXMLInputHandler
      * @param string $aliasedType
      * @param eZContentObjectAttribute $contentObjectAttribute
      */
-    function __construct( &$xmlData, $aliasedType, $contentObjectAttribute )
+    function __construct( $xmlData, $aliasedType, $contentObjectAttribute )
     {
         parent::__construct( $xmlData, $aliasedType, $contentObjectAttribute );
 
