@@ -15,12 +15,6 @@
         "ezsystems/ezfind-ls": "ezfind is a Solr based advance search engine for eZ Publish with a lot more features then the built in search",
         "ezsystems/eztags-ls": "eztags is a full tagging/taxonomy solution for eZ Publish replacing the simpler builtin ezkeywords datatype"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/sport1online/ezfind"
-        }
-    ],
     "require": {
         "php": ">=5.3.3",
         "ext-dom": "*",
