@@ -1,5 +1,5 @@
 {
-    "name":        "ezsystems/ezpublish-legacy",
+    "name":        "sport1online/ezpublish-legacy",
     "description": "eZ Publish LegacyStack (4.x)",
     "homepage":    "http://share.ez.no",
     "license":     "GPL-2.0-only",
@@ -66,6 +66,9 @@
     "autoload": {
       "files": ["autoload.php"]
     },
+    "replace": {
+        "ezsystems/ezpublish-legacy": "*"
+    },
     "scripts": {
       "legacy-scripts": [
           "@php bin/php/ezpgenerateautoloads.php"
@@ -76,9 +79,6 @@
       "post-update-cmd": [
           "@legacy-scripts"
       ]
-    },
-    "conflict": {
-        "ezsystems/ezpublish-kernel": "<6.13 || >=2014.11 <2017.12"
     },
     "extra": {
         "branch-alias": {
