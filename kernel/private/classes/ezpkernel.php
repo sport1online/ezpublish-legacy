@@ -24,7 +24,7 @@ class ezpKernel implements ezpWebBasedKernelHandler
      */
     protected static $instance = null;
 
-    public function __construct( $kernelHandler )
+    public function __construct( ezpKernelHandler $kernelHandler )
     {
         /**
          * PHP 5.3.3 is our hard requirement
